@@ -1,14 +1,18 @@
 # MyMoodDiary
 
-주제: 게시판<br>
+주제 : 게시판 or 다이어리 or 메모장<br>
+소개 : 글을 원하는대로 쓰고 읽고 저장하고 삭제할 수 있게 해주는 프로그램이다. 자세한 방향은 차후에 정할 것이다.<br>
+활용 언어 : C<br>
+팀 소개 및 역할 :
+ - 백건하(아이디어, 구현 협업)
+ - 김대석(아이디어, 구현 협업)
+
+공용 github : https://github.com/2022OSSTeamProject/MyMoodDiary.git<br>
+대석 github : https://github.com/muyaho-universe/2022OSSTeamProject_Daeseok.git<br>
+건하 github : https://github.com/rjsgk789/2022OSS_Baek<br>
+위키 : https://github.com/2022OSSTeamProject/MyMoodDiary/wiki<br>
+
 들어갈 내용- 글 번호, 작성자, 제목, 날짜, 내용, 사진첨부여부<br>
-활용 언어 : c<br>
-공용 github: https://github.com/2022OSSTeamProject/MyMoodDiary.git<br>
-대석 github: https://github.com/muyaho-universe/2022OSSTeamProject_Daeseok.git<br>
-건하 github: https://github.com/rjsgk789/2022OSS_Baek<br>
-위키: https://github.com/2022OSSTeamProject/MyMoodDiary/wiki<br>
-
-
 typedef Struct {<br>
 int num;<br>
 char name[20];<br>
