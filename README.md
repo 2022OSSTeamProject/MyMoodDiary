@@ -9,25 +9,25 @@
 위키: https://github.com/2022OSSTeamProject/MyMoodDiary/wiki<br>
 
 
-typedef Struct {
-int num;
-char name[20];
-char title[50];
-char date[11];
-char content[100];
-char isAttached; //Y or N
-} Post;
+typedef Struct {<br>
+int num;<br>
+char name[20];<br>
+char title[50];<br>
+char date[11];<br>
+char content[100];<br>
+char isAttached; //Y or N<br>
+} Post;<br>
 
-CreatePost(Post)
-ReadPost()
-ListBoard
-UpdatePost
-DeletePost
-SaveBoard
-LoadBoard
-ShowMenu()
-SearchPost
-showDetail
+CreatePost(Post)<br>
+ReadPost()<br>
+ListBoard<br>
+UpdatePost<br>
+DeletePost<br>
+SaveBoard<br>
+LoadBoard<br>
+ShowMenu()<br>
+SearchPost<br>
+showDetail<br>
 
 
 
