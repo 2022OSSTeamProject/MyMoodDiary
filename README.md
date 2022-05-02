@@ -18,16 +18,16 @@ char content[100];<br>
 char isAttached; //Y or N<br>
 } Post;<br>
 
-CreatePost(Post)<br>
-ReadPost()<br>
-ListBoard<br>
-UpdatePost<br>
-DeletePost<br>
-SaveBoard<br>
-LoadBoard<br>
-ShowMenu()<br>
-SearchPost<br>
-showDetail<br>
+CreatePost(Post * p) // create a post<br>
+ReadPost(Post p) // read a post<br>
+ListBoard(Post ** p, int idx) // list all posts in board<br>
+UpdatePost(Post * p, int idx) // update a post<br>
+DeletePost(Post * p, int idx) // delete a post<br>
+SaveBoard(Post * p) // save all posts in board<br>
+LoadBoard(Post * p) // load all posts in board<br>
+ShowMenu() // show menus<br>
+SearchPost(Post * p, int idx) // searching in board<br>
+showDetail(Post * p, int idx) // read descript from a post<br>
 
 
 
