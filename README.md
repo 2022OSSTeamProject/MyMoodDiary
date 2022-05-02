@@ -1,12 +1,12 @@
 # MyMoodDiary
 
-주제: 게시판 
-들어갈 내용- 글 번호, 작성자, 제목, 날짜, 내용, 사진첨부여부
-활용 언어 : c
-공용 github: https://github.com/2022OSSTeamProject/MyMoodDiary.git 
-대석 github: https://github.com/muyaho-universe/2022OSSTeamProject_Daeseok.git
-건하 github: https://github.com/rjsgk789/2022OSS_Baek
-위키: https://github.com/2022OSSTeamProject/MyMoodDiary/wiki 
+주제: 게시판<br>
+들어갈 내용- 글 번호, 작성자, 제목, 날짜, 내용, 사진첨부여부<br>
+활용 언어 : c<br>
+공용 github: https://github.com/2022OSSTeamProject/MyMoodDiary.git<br>
+대석 github: https://github.com/muyaho-universe/2022OSSTeamProject_Daeseok.git<br>
+건하 github: https://github.com/rjsgk789/2022OSS_Baek<br>
+위키: https://github.com/2022OSSTeamProject/MyMoodDiary/wiki<br>
 
 
 typedef Struct {
