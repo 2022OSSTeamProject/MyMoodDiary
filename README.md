@@ -8,10 +8,12 @@
 팀 소개 및 역할 :
  - 백건하(아이디어, 구현 협업)
  - 김대석(아이디어, 구현 협업)
+ - 정윤석(아이디어, 구현 협업)
 
 공용 github : https://github.com/2022OSSTeamProject/MyMoodDiary.git<br>
 대석 github : https://github.com/muyaho-universe/2022OSSTeamProject_Daeseok.git<br>
 건하 github : https://github.com/rjsgk789/2022OSS_Baek<br>
+윤석 github : 
 위키 : https://github.com/2022OSSTeamProject/MyMoodDiary/wiki<br>
 
 
