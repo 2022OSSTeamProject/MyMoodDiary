@@ -13,7 +13,7 @@
 공용 github : https://github.com/2022OSSTeamProject/MyMoodDiary.git<br>
 대석 github : https://github.com/muyaho-universe/2022OSSTeamProject_Daeseok.git<br>
 건하 github : https://github.com/rjsgk789/2022OSS_Baek<br>
-윤석 github : 
+윤석 github : https://github.com/YS-Jeong-21800673/MyMoodDiary<br>
 위키 : https://github.com/2022OSSTeamProject/MyMoodDiary/wiki<br>
 
 
