@@ -21,7 +21,7 @@ int main(void)
             if (count > 0)
                 ListBoard(p, index);
             else
-                printf("Îç∞Ïù¥ÌÑ∞Í∞Ä ÏóÜÏäµÎãàÎã§.\n");
+                printf("?ç∞?ù¥?Ñ∞Í∞? ?óÜ?äµ?ãà?ã§.\n");
         }
         else if (menu == 2)
         {
@@ -37,35 +37,35 @@ int main(void)
             int idx = SelectPostNo(p, index);
             if (idx == 0)
             {
-                printf("=> Ï∑®ÏÜåÎê®!\n");
+                printf("=> Ï∑®ÏÜå?ê®!\n");
                 continue;
             }
             if (UpdatePost(p, count, idx))
-                printf("=> ÏàòÏ†ï ÏÑ±Í≥µ!");
+                printf("=> ?àò?†ï ?Ñ±Í≥?!");
         }
         else if (menu == 5)
         {
             int idx = SelectPostNo(p, index);
             if (idx == 0)
             {
-                printf("=> Ï∑®ÏÜåÎê®!\n");
+                printf("=> Ï∑®ÏÜå?ê®!\n");
                 continue;
             }
             int deleteOk;
-            printf("Ï†ïÎßêÎ°ú ÏÇ≠Ï†úÌïòÏãúÍ≤†ÏäµÎãàÍπå (ÏÇ≠Ï†ú : 1)? ");
+            printf("?†ïÎßêÎ°ú ?Ç≠?†ú?ïò?ãúÍ≤†Ïäµ?ãàÍπ? (?Ç≠?†ú : 1)? ");
             scanf("%d", &deleteOk);
             if (deleteOk == 1)
             {
                 if (DeletePost(p, idx))
                 {
                     count--;
-                    printf("=> ÏÇ≠Ï†úÎê®!");
+                    printf("=> ?Ç≠?†ú?ê®!");
                 }
             }
         }
         else if (menu == 6)
         {
-            SaveBoard(p);
+            SaveBoard(p, index);
         }
         else if (menu == 7)
         {
@@ -73,6 +73,6 @@ int main(void)
             SearchPost(p, idx);
         }
     }
-    printf("Ï¢ÖÎ£åÎê®!\n");
+    printf("Ï¢ÖÎ£å?ê®!\n");
     return 0;
 }
