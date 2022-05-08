@@ -7,8 +7,9 @@
 int main(void)
 {
     Post p[20];
-    int count = 0, menu;
-    int index = 0;
+    int count = 0; // the numbers of post
+    int menu;
+    int index = 0; // now index
 
     while (1)
     {
