@@ -116,6 +116,7 @@ int UpdatePost(Post *p, int count, int no)
         sprintf(mon, "%d", tm->tm_mon + 1);
         sprintf(day, "%d", tm->tm_mday);
 
+        strcpy(today, "");
         strcat(today, year);
         strcat(today, "-");
         strcat(today, mon);
@@ -134,7 +135,7 @@ int DeletePost(Post *p, int no)
 }
 void SaveBoard(Post *p, int idx)
 {
-    char filename[20] = "dairy.txt";
+    char filename[20] = "diary.txt";
     FILE * fp;
     fp = fopen(filename, "w");
     int j = 1;

@@ -6,7 +6,7 @@ typedef struct
     char name[20];      // writer`s name
     char title[50];     // post`s title
     char date[11];      // post`s last modified date
-    char content[100];  // post`s content
+    char content[1024];  // post`s content
     char isAttached;    // Y or N
     bool isDeleted;
 } Post;
