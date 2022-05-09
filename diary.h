@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 typedef struct
 {
     int num;            // post`s index
@@ -16,21 +18,21 @@ void ReadPost(Post p);                       // read a post
     // input  : the post`s value
 void ListBoard(Post *p, int idx);            // list all posts in board
     // input  : the board`s address, last index
-int UpdatePost(Post *p, int count, int idx); // call SelectPostNo & update the post
-    // input  : the board`s address, last index
-    // output : 1?
-int DeletePost(Post *p, int idx);            // call SelectPostNo & delete the post
-    // input  : the board`s address, last index
-    // output : 1?
+int UpdatePost(Post *p, int count, int no); // show ShowDetail() & update information you choose
+    // input  : the board`s address, a number you choose
+    // output : 1
+int DeletePost(Post *p, int no);            // delete the post
+    // input  : the board`s address, a number you choose
+    // output : 1 (for count)
 void SaveBoard(Post *p, int idx);            // save all posts in board
     // input  : the board`s address
 void ListBoard(Post *p, int idx);            // load all posts in board
     // input  : the board`s address
 int ShowMenu();                              // show menus
-void SearchPost(Post *p, int idx);           // searching in board
+void SearchPost(Post *p, int idx);           // what kind of column do you want to search in? & searching in column
     // input  : the board`s address, last index
-void showDetail(Post *p, int idx);           // call SelectPostNo & read descript from the post
-    // input  : the board`s address, last index
+void showDetail(Post *p, int no);           // read descript from the post
+    // input  : the board`s address, a number you choose
 int SelectPostNo(Post *p, int index);        // show ListBoard() & choose the index
     // input  : the board`s address, last index
     // output : the index that user chooses

@@ -15,24 +15,25 @@ int CreatePost(Post *p, int index)
     time_t t = time(NULL);
     struct tm *tm = localtime(&t);
 
-    printf("작성자\n");
-    scanf("%[^\n]s", p->name);
-    getchar();
+    printf("Writer`s name : ");
+    scanf(" %[^\n]s", p->name);
+    //getchar();
 
-    printf("제목\n");
-    scanf("%[^\n]s", p->title);
-    getchar();
+    printf("Title of Post : ");
+    scanf(" %[^\n]s", p->title);
+    //getchar();
 
-    printf("내용\n");
-    scanf("%[^\n]s", p->content);
-    getchar();
+    printf("Contents : ");
+    scanf(" %[^\n]s", p->content);
+    //getchar();
+
     do
     {
-        printf("첨부 사진 여부 (Y/N)\n");
-        scanf("%c", &p->isAttached);
+        printf("Having attached photo(Y/N)? : ");
+        scanf(" %c", &p->isAttached);
         if (p->isAttached == 'Y' || p->isAttached == 'N')
             break;
-        printf("\'Y\'나 \'N\'으로 입력해주세요\n");
+        printf("\'Y\' or \'N\' only you can choose\n");
     } while (true);
     
     
@@ -57,27 +58,78 @@ int CreatePost(Post *p, int index)
 
 void ReadPost(Post p)
 {
-    printf("****************************************************\n");
-    printf("%s\n%s\n%s\n%s\n", p.name, p.title, p.date, p.content);
-    printf("****************************************************\n");
+    printf("%d\t%s\t%s\t%s\t%.10s ...\n", p.num, p.title, p.name, p.date, p.content);
 }
 
 void ListBoard(Post *p, int idx)
 {
-    printf("****************************************************\n");
+    printf("\n****************************************************\n");
+    printf("no\ttitle\twriter\tdate\t\tcontent\n");
     for (int i = 0; i < idx; i++)
     {
-        printf("%d\t%s\t%s\t%s\n", p[i].num, p[i].title, p[i].date, p[i].name);
+        if (!p[i].isDeleted) ReadPost(p[i]);
     }
-    printf("****************************************************\n");
+    printf("****************************************************\n\n");
 }
-int UpdatePost(Post *p, int count, int idx)
+int UpdatePost(Post *p, int count, int no)
 {
-    return 0;
+    char today[11] = "";
+    char year[5] = "";
+    char mon[3] = "";
+    char day[3] = "";
+    
+    time_t t = time(NULL);
+    struct tm *tm = localtime(&t);
+
+    showDetail(p, no);
+
+    int updateNo=1;
+    while(1){
+        printf("Choose what you want to update (1:writer 2:title 3:content 4:AttacedPhoto 0:exit) : ");
+        scanf("%d", &updateNo);
+
+        if (updateNo == 0){
+            break;
+        }
+        else if (updateNo == 1){
+            printf("New writer`s name : ");
+            scanf(" %[^\n]s", p->name);
+        }
+        else if (updateNo == 2){
+            printf("New title of Post : ");
+            scanf(" %[^\n]s", p->title);
+        }
+        else if (updateNo == 3){
+            printf("New content : ");
+            scanf(" %[^\n]s", p->content);
+        }
+        else if (updateNo == 4){
+            do
+            {
+                printf("Having attached photo(Y/N)? : ");
+                scanf(" %c", &p->isAttached);
+                if (p->isAttached == 'Y' || p->isAttached == 'N') break;
+                printf("\'Y\' or \'N\' only you can choose\n");
+            } while (true);
+        }
+        sprintf(year, "%d", tm->tm_year + 1900);
+        sprintf(mon, "%d", tm->tm_mon + 1);
+        sprintf(day, "%d", tm->tm_mday);
+
+        strcat(today, year);
+        strcat(today, "-");
+        strcat(today, mon);
+        strcat(today, "-");
+        strcat(today, day);
+
+        strcpy(p->date, today);
+    }
+
+    return 1;
 }
-int DeletePost(Post *p, int idx)    
+int DeletePost(Post *p, int no)    
 {
-    p[idx].isDeleted = true;
+    p[no].isDeleted = true;
     return 1;
 }
 void SaveBoard(Post *p, int idx)
@@ -90,7 +142,7 @@ void SaveBoard(Post *p, int idx)
     {
         if (!p[i].isDeleted)
         {
-            fprintf(fp,"%d\t%s\t%s\t%s\n", j, p[i].title, p[i].date, p[i].name);
+            fprintf(fp,"%d\t%s\t%s\t%s\n", j, p[i].title, p[i].name, p[i].date);
             fprintf(fp,"%s\n", p[i].content);
             j++;
         }
@@ -104,25 +156,27 @@ int ShowMenu()
 {
     int menu;
     printf("\n*** My Mood Diary ***\n");
-    printf("1. 일기조회\n");
-    printf("2. 내용 상세보기\n");
-    printf("3. 글 추가\n");
-    printf("4. 글 수정\n");
-    printf("5. 글 삭제\n");
-    printf("6. 현재 내용 저장\n");
-    printf("7. 찾기\n");
-    printf("0. 종료\n\n");
-    printf("=> 원하는 메뉴는? ");
+    printf("1. Show Board\n");
+    printf("2. Show detail in a Post\n");
+    printf("3. Create Post\n");
+    printf("4. Update Post\n");
+    printf("5. Delete Post\n");
+    printf("6. Save Board\n");
+    printf("7. Searching\n");
+    printf("0. exit\n\n");
+    printf("=> What do you want? ");
     scanf("%d", &menu);
-    getchar();
+    //getchar();
     return menu;
 }
 void SearchPost(Post *p, int idx)
 {
     return;
 }
-void showDetail(Post *p, int idx)
+void showDetail(Post *p, int no)
 {
+    printf("\nno\ttitle\twriter\tdate\n");
+    printf("%d\t%s\t%s\t%s\ncontent : %s\n\n", p[no].num, p[no].title, p[no].name, p[no].date, p[no].content);
     return;
 }
 
@@ -132,12 +186,13 @@ int SelectPostNo(Post *p, int index)
     ListBoard(p, index);
     while (true)
     {
-        printf("번호는 (취소 : 0)? ");
+        printf("number(cancel : 0)? ");
         scanf("%d", &idx);
-        getchar();
+        //getchar();
+        if (idx == 0) break;
         if (idx <= index)
             break;
-        printf("해당 데이터는 없습니다.\n");
+        printf("No such data.\n");
     }
     
     return idx;

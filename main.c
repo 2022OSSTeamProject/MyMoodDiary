@@ -10,6 +10,7 @@ int main(void)
     int count = 0; // the numbers of post
     int menu;
     int index = 0; // now index
+    int no;        // select number you want
 
     while (1)
     {
@@ -18,61 +19,67 @@ int main(void)
             break;
         if (menu == 1)
         {
+            // ListBoard
             if (count > 0)
                 ListBoard(p, index);
             else
-                printf("?ç∞?ù¥?Ñ∞Í∞? ?óÜ?äµ?ãà?ã§.\n");
+                printf("No data.\n");
         }
         else if (menu == 2)
         {
-            int idx = SelectPostNo(p, index);
-            ReadPost(p[idx]);
+            // showDetail function
+            no = SelectPostNo(p, index);
+            showDetail(p, no-1);
         }
         else if (menu == 3)
         {
+            // CreatePost
             count += CreatePost(&p[count], ++index);
         }
         else if (menu == 4)
         {
-            int idx = SelectPostNo(p, index);
-            if (idx == 0)
+            // UpdatePost
+            no = SelectPostNo(p, index);
+            if (no == 0)
             {
-                printf("=> Ï∑®ÏÜå?ê®!\n");
+                printf("=> Canceled!\n");
                 continue;
             }
-            if (UpdatePost(p, count, idx))
-                printf("=> ?àò?†ï ?Ñ±Í≥?!");
+            if (UpdatePost(p, count, no-1))
+                printf("=> Update Complete!\n");
         }
         else if (menu == 5)
         {
-            int idx = SelectPostNo(p, index);
-            if (idx == 0)
+            // DeletePost
+            no = SelectPostNo(p, index);
+            if (no == 0)
             {
-                printf("=> Ï∑®ÏÜå?ê®!\n");
+                printf("=> Canceled!\n");
                 continue;
             }
             int deleteOk;
-            printf("?†ïÎßêÎ°ú ?Ç≠?†ú?ïò?ãúÍ≤†Ïäµ?ãàÍπ? (?Ç≠?†ú : 1)? ");
+            printf("Are you sure you want to delete it? (delete : 1)? ");
             scanf("%d", &deleteOk);
             if (deleteOk == 1)
             {
-                if (DeletePost(p, idx))
+                if (DeletePost(p, no-1))
                 {
                     count--;
-                    printf("=> ?Ç≠?†ú?ê®!");
+                    printf("=> Delete Complete!\n");
                 }
             }
         }
         else if (menu == 6)
         {
+            // SaveBoard
             SaveBoard(p, index);
         }
         else if (menu == 7)
         {
-            int idx = SelectPostNo(p, index);
-            SearchPost(p, idx);
+            // SearchPost
+            SearchPost(p, index);
         }
     }
-    printf("Ï¢ÖÎ£å?ê®!\n");
+    printf("Exit!\n");
     return 0;
 }
