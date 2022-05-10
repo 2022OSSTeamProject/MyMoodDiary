@@ -5,4 +5,5 @@ struct Account
     char user_pwd[15];      // user password upto 15 characters
 };
 
-int LoadAccount(Account* account[]);
+int AccountMenu();
+int LoadAccount(struct Account* p[]);
