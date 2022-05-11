@@ -3,14 +3,43 @@
 #include <string.h>
 #include <time.h>
 #include "diary.h"
+#include "account.h"
 
 int main(void)
 {
     Post p[20];
     int count = 0; // the numbers of post
+    int account_count = 0;
+    int account_menu;
     int menu;
     int index = 0; // now index
     int no;        // select number you want
+    int login;
+    struct Account* a[20];
+    char id[15], pwd[15];
+    
+    account_count = LoadAccount(a);
+    while (1)
+    {  
+        account_menu = AccountMenu();
+        if (account_menu == 1)
+        {
+           printf("Enter your ID: ");
+           scanf("%s", id);
+           printf("Enter your PWD: ");
+           scanf("%s", pwd);
+           login = Login(p, id, pwd, account_count);
+           if (login == 1)
+            break;
+        }
+        if (account_menu == 2)
+        {
+            SignUp(a, account_count);
+        }
+        else
+            printf("Enter the menu again.\n");
+    }
+    
 
     while (1)
     {

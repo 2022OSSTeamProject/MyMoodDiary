@@ -7,7 +7,6 @@ int AccountMenu()
     printf("\n*** Login Page ***\n");
     printf("1. Login\n");
     printf("2. Sign up\n");
-    printf("0. exit\n\n");
     printf("=> What do you want? ");
     scanf("%d", &menu);
     //getchar();
@@ -65,7 +64,7 @@ int Login(struct Account* p[], char n[15], char pw[15], int count)
     return 0;
 }
 
-int SignUp(struct Account* p[], int count)
+void SignUp(struct Account* p[], int count)
 {
     char t_n[15], t_pw[15], t_pw2[15];
     while (1)
