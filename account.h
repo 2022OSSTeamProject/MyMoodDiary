@@ -7,3 +7,5 @@ struct Account
 
 int AccountMenu();
 int LoadAccount(struct Account* p[]);
+int Login(struct Account* p[], char n[15], char pw[15], int count);
+int SignUp(struct Account* p[], int count);

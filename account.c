@@ -45,3 +45,56 @@ int LoadAccount(struct Account* p[])
     
     return i;
 }
+
+int Login(struct Account* p[], char n[15], char pw[15], int count)
+{
+    for (int i = 0; i < count; i++)
+    {
+        if (strstr(p[i]->user_name, n) == 0)
+        {
+            if ((strstr(p[i]->user_pwd, pw) == 0))
+            {
+                printf("Login Success!\n");
+                return 1;
+            }
+            printf("Wrong Password!\n");
+            return -1;
+        }
+    }
+    printf("Account doesn't exit!\n");
+    return 0;
+}
+
+int SignUp(struct Account* p[], int count)
+{
+    char t_n[15], t_pw[15], t_pw2[15];
+    while (1)
+    {
+        printf("Enter your ID: ");
+        scanf("%s", t_n);
+        
+        for (int i = 0; i < count; i++)
+        {
+            if (strstr(p[i]->user_name, t_n) == 0)
+            {
+                printf("ID already exuts! Try again!\n");
+                continue;
+            }
+        }
+    }
+    while (1)
+    {
+        printf("Enter your pwdD: ");
+        scanf("%s", t_pw);
+        printf("Re-enter password: ");
+        scanf("%s", t_pw2);
+        if (strstr(t_pw, t_pw2)==0)
+            break;
+        printf("Passwords are not same. Please, enter it again.\n");
+    }
+    
+    FILE * fp;
+    fp = fopen("account.txt", 'a');
+    fprintf(fp, "%d %s %s\n", count+1, t_n, t_pw);
+    fclose(fp);
+}
