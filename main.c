@@ -19,7 +19,6 @@ int main(void)
     char id[15], pwd[15];
     
     account_count = LoadAccount(a);
-    printf("%d %s %s\n", account_count, a[0]->user_name, a[0]->user_pwd);
     while (1)
     {  
         account_menu = AccountMenu();

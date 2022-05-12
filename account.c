@@ -38,9 +38,9 @@ int LoadAccount(struct Account* p[])
     else
     {
         FILE * fp;
-        printf("\n=> File doesn't exit.\n New file created\n");
+        printf("\n=> File doesn't exit.\n New file created\n Please sign-up!!\n");
         fp = fopen("account.txt", "w");
-        fprintf(fp,"NULL 0\n");         //fake value for creating new file
+        fprintf(fp,"NULL 0000\n");         //fake value for creating new file
         fclose(fp);
         int tmp = LoadAccount(p);
     }
