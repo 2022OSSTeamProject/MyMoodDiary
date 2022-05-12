@@ -24,7 +24,7 @@ int UpdatePost(Post *p, int count, int no); // show ShowDetail() & update inform
 int DeletePost(Post *p, int no);            // delete the post
     // input  : the board`s address, a number you choose
     // output : 1 (for count)
-void SaveBoard(Post *p, int idx);            // save all posts in board
+void SaveBoard(Post *p, int idx, char name[15]);            // save all posts in board
     // input  : the board`s address
 void ListBoard(Post *p, int idx);            // load all posts in board
     // input  : the board`s address

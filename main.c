@@ -41,8 +41,8 @@ int main(void)
         else
             printf("Enter the menu again.\n");
     }
-    
-
+    printf("\nWelcome, %s!! We missed you :)\n", id);
+    count = 0;
     while (1)
     {
         menu = ShowMenu();
@@ -103,7 +103,7 @@ int main(void)
         else if (menu == 6)
         {
             // SaveBoard
-            SaveBoard(p, index);
+            SaveBoard(p, index, id);
         }
         else if (menu == 7)
         {

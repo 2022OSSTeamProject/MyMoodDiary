@@ -133,9 +133,13 @@ int DeletePost(Post *p, int no)
     p[no].isDeleted = true;
     return 1;
 }
-void SaveBoard(Post *p, int idx)
+void SaveBoard(Post *p, int idx, char name[15])
 {
-    char filename[20] = "diary.txt";
+    char t[20];
+    strcpy(t,strcat(name,".txt"));
+    char filename[20];
+    strcpy(filename,t);
+    printf("%s\n", filename);
     FILE * fp;
     fp = fopen(filename, "w");
     int j = 1;
