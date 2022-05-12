@@ -40,7 +40,9 @@ int LoadAccount(struct Account* p[])
         FILE * fp;
         printf("\n=> File doesn't exit.\n New file created\n");
         fp = fopen("account.txt", "w");
+        fprintf(fp,"NULL 0\n");         //fake value for creating new file
         fclose(fp);
+        int tmp = LoadAccount(p);
     }
     
     return i;
@@ -97,10 +99,19 @@ void SignUp(struct Account* p[], int count)
             break;
         printf("Passwords are not same. Please, enter it again.\n");
     }
-    
     FILE * fp;
-    fp = fopen("account.txt", "a");
-    fprintf(fp, "%s %s\n", t_n, t_pw);
-    fclose(fp);
+    if ((strcmp(p[0]->user_name, "NULL") == 0) &&(strcmp(p[0]->user_pwd, "0000") == 0))
+    {
+        fp = fopen("account.txt", "w");
+        fprintf(fp, "%s %s\n", t_n, t_pw);
+        fclose(fp);
+    }
+    
+    else
+    {
+        fp = fopen("account.txt", "a");
+        fprintf(fp, "%s %s\n", t_n, t_pw);
+        fclose(fp);
+    }
     printf("Successfully appended\n");
 }
