@@ -135,11 +135,8 @@ int DeletePost(Post *p, int no)
 }
 void SaveBoard(Post *p, int idx, char name[15])
 {
-    char t[20];
-    strcpy(t,strcat(name,".txt"));
     char filename[20];
-    strcpy(filename,t);
-    printf("%s\n", filename);
+    strcpy(filename,strcat(name,".txt"));
     FILE * fp;
     fp = fopen(filename, "w");
     int j = 1;
