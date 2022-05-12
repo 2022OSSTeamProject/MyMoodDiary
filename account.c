@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "account.h"
 
 int AccountMenu()
@@ -23,11 +25,10 @@ int LoadAccount(struct Account* p[])
             int t_num;     //temporary variable for reading from file
             char t_name[15];
             char t_pwd[15];
-            int t = fscanf(fp,"%d %s %s",  &t_num, t_name, t_pwd);
+            int t = fscanf(fp,"%s %s", t_name, t_pwd);
             if (t <= 0) break;
             p[i] = (struct Account*) malloc(sizeof(struct Account));
             strcpy(p[i]->user_name, t_name);
-            p[i]->user_num = t_num;
             strcpy(p[i]->user_pwd, t_pwd);
             i++;
         }
@@ -38,7 +39,7 @@ int LoadAccount(struct Account* p[])
     {
         FILE * fp;
         printf("\n=> File doesn't exit.\n New file created\n");
-        fp = fopen("account.txt", 'w');
+        fp = fopen("account.txt", "w");
         fclose(fp);
     }
     
@@ -49,9 +50,9 @@ int Login(struct Account* p[], char n[15], char pw[15], int count)
 {
     for (int i = 0; i < count; i++)
     {
-        if (strstr(p[i]->user_name, n) == 0)
+        if (strcmp(p[i]->user_name, n) == 0)
         {
-            if ((strstr(p[i]->user_pwd, pw) == 0))
+            if ((strcmp(p[i]->user_pwd, pw) == 0))
             {
                 printf("Login Success!\n");
                 return 1;
@@ -67,19 +68,24 @@ int Login(struct Account* p[], char n[15], char pw[15], int count)
 void SignUp(struct Account* p[], int count)
 {
     char t_n[15], t_pw[15], t_pw2[15];
+    int go;
     while (1)
     {
+        go = 1;
         printf("Enter your ID: ");
         scanf("%s", t_n);
         
         for (int i = 0; i < count; i++)
         {
-            if (strstr(p[i]->user_name, t_n) == 0)
+            if (strcmp(p[i]->user_name, t_n) == 0)
             {
                 printf("ID already exuts! Try again!\n");
+                go = 0;
                 continue;
             }
         }
+        if (go)
+            break;
     }
     while (1)
     {
@@ -87,13 +93,14 @@ void SignUp(struct Account* p[], int count)
         scanf("%s", t_pw);
         printf("Re-enter password: ");
         scanf("%s", t_pw2);
-        if (strstr(t_pw, t_pw2)==0)
+        if (strcmp(t_pw, t_pw2)==0)
             break;
         printf("Passwords are not same. Please, enter it again.\n");
     }
     
     FILE * fp;
-    fp = fopen("account.txt", 'a');
-    fprintf(fp, "%d %s %s\n", count+1, t_n, t_pw);
+    fp = fopen("account.txt", "a");
+    fprintf(fp, "%s %s\n", t_n, t_pw);
     fclose(fp);
+    printf("Successfully appended\n");
 }

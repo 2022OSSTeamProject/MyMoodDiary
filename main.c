@@ -19,6 +19,7 @@ int main(void)
     char id[15], pwd[15];
     
     account_count = LoadAccount(a);
+    printf("%d %s %s\n", account_count, a[0]->user_name, a[0]->user_pwd);
     while (1)
     {  
         account_menu = AccountMenu();
@@ -28,13 +29,14 @@ int main(void)
            scanf("%s", id);
            printf("Enter your PWD: ");
            scanf("%s", pwd);
-           login = Login(p, id, pwd, account_count);
+           login = Login(a, id, pwd, account_count);
            if (login == 1)
             break;
         }
         if (account_menu == 2)
         {
             SignUp(a, account_count);
+            account_count = LoadAccount(a);
         }
         else
             printf("Enter the menu again.\n");
