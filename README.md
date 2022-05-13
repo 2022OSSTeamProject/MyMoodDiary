@@ -27,6 +27,17 @@ char content[100];<br>
 char isAttached; //Y or N<br>
 } Post;<br>
 
+struct Account
+{
+    char user_name[15];     // user name upto 15 characters
+    char user_pwd[15];      // user password upto 15 characters
+};
+
+int AccountMenu();
+int LoadAccount(struct Account* p[]);
+int Login(struct Account* p[], char n[15], char pw[15], int count);
+void SignUp(struct Account* p[], int count);
+
 CreatePost(Post * p) // create a post<br>
 ReadPost(Post p) // read a post<br>
 ListBoard(Post ** p, int idx) // list all posts in board<br>
