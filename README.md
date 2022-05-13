@@ -33,10 +33,10 @@ struct Account<br>
     char user_pwd[15];      // user password upto 15 characters<br>
 };<br>
 
-int AccountMenu();
-int LoadAccount(struct Account* p[]);
-int Login(struct Account* p[], char n[15], char pw[15], int count);
-void SignUp(struct Account* p[], int count);
+int AccountMenu();<br>
+int LoadAccount(struct Account* p[]);<br>
+int Login(struct Account* p[], char n[15], char pw[15], int count);<br>
+void SignUp(struct Account* p[], int count);<br>
 
 CreatePost(Post * p) // create a post<br>
 ReadPost(Post p) // read a post<br>
