@@ -27,11 +27,11 @@ char content[100];<br>
 char isAttached; //Y or N<br>
 } Post;<br>
 
-struct Account
-{
-    char user_name[15];     // user name upto 15 characters
-    char user_pwd[15];      // user password upto 15 characters
-};
+struct Account<br>
+{<br>
+    char user_name[15];     // user name upto 15 characters<br>
+    char user_pwd[15];      // user password upto 15 characters<br>
+};<br>
 
 int AccountMenu();
 int LoadAccount(struct Account* p[]);
