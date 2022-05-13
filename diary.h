@@ -9,6 +9,7 @@ typedef struct
     char content[1024];  // post`s content
     char isAttached;    // Y or N
     bool isDeleted;
+    char isPublic;
 } Post;
 
 int CreatePost(Post *p, int index);          // create a post

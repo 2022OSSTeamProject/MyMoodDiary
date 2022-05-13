@@ -36,7 +36,14 @@ int CreatePost(Post *p, int index)
         printf("\'Y\' or \'N\' only you can choose\n");
     } while (true);
     
-    
+    do
+    {
+        printf("Do you want to set this post as public so that everyone can see it? (Y/N)? : ");
+        scanf(" %c", &p->isAttached);
+        if (p->isPublic == 'Y' || p->isPublic == 'N')
+            break;
+        printf("\'Y\' or \'N\' only you can choose\n");
+    } while (true);
 
     sprintf(year, "%d", tm->tm_year + 1900);
     sprintf(mon, "%d", tm->tm_mon + 1);
@@ -138,14 +145,35 @@ void SaveBoard(Post *p, int idx, char name[15])
     char filename[20];
     strcpy(filename,strcat(name,".txt"));
     FILE * fp;
+    FILE * fp2;
     fp = fopen(filename, "w");
     int j = 1;
     for (int i = 0; i < idx; i++)
     {
         if (!p[i].isDeleted)
         {
-            fprintf(fp,"%d\t%s\t%s\t%s\n", j, p[i].title, p[i].name, p[i].date);
+            fprintf(fp,"%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
             fprintf(fp,"%s\n", p[i].content);
+            if (p[i].isPublic == 'Y')
+            {
+                if (fp2 = fopen("public.txt", "r"))
+                {
+                    fclose(fp2);
+                    fp2 = fopen("public.txt", "a");
+                    fprintf(fp,"%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
+                    fprintf(fp,"%s\n", p[i].content);
+                    fclose(fp2);
+                }
+                else
+                {
+                    fp2 = fopen("public.txt", "w");
+                    fprintf(fp,"%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
+                    fprintf(fp,"%s\n", p[i].content);
+                    fclose(fp2);
+                }
+                
+            }
+            
             j++;
         }
     }
