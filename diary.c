@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include "diary.h"
 
-int CreatePost(Post *p, int index)
+int CreatePost(Post *p, int index, char id[15], int mode)
 {
     char today[11] = "";
     char year[5] = "";
@@ -15,10 +15,10 @@ int CreatePost(Post *p, int index)
     time_t t = time(NULL);
     struct tm *tm = localtime(&t);
 
-    printf("Writer`s name : ");
-    scanf(" %[^\n]s", p->name);
-    //getchar();
-
+    //printf("Writer`s name : ");
+    //scanf(" %[^\n]s", p->name);
+    strcpy(p->name, id);
+    
     printf("Title of Post : ");
     scanf(" %[^\n]s", p->title);
     //getchar();
@@ -36,15 +36,20 @@ int CreatePost(Post *p, int index)
         printf("\'Y\' or \'N\' only you can choose\n");
     } while (true);
     
-    do
-    {
-        printf("Do you want to set this post as public so that everyone can see it? (Y/N)? : ");
-        scanf(" %c", &p->isAttached);
-        if (p->isPublic == 'Y' || p->isPublic == 'N')
-            break;
-        printf("\'Y\' or \'N\' only you can choose\n");
-    } while (true);
-
+    if (mode == 1){
+        p->isPublic = 'Y';
+    }
+    else{
+        do
+        {
+            printf("Do you want to set this post as public so that everyone can see it? (Y/N)? : ");
+            scanf(" %c", &p->isPublic);
+            if (p->isPublic == 'Y' || p->isPublic == 'N')
+                break;
+            printf("\'Y\' or \'N\' only you can choose\n");
+        } while (true);
+    }
+    
     sprintf(year, "%d", tm->tm_year + 1900);
     sprintf(mon, "%d", tm->tm_mon + 1);
     sprintf(day, "%d", tm->tm_mday);
@@ -78,7 +83,7 @@ void ListBoard(Post *p, int idx)
     }
     printf("****************************************************\n\n");
 }
-int UpdatePost(Post *p, int count, int no)
+int UpdatePost(Post *p, int count, char id[15], int no)
 {
     char today[11] = "";
     char year[5] = "";
@@ -92,25 +97,21 @@ int UpdatePost(Post *p, int count, int no)
 
     int updateNo=1;
     while(1){
-        printf("Choose what you want to update (1:writer 2:title 3:content 4:AttacedPhoto 0:exit) : ");
+        printf("Choose what you want to update (1:title 2:content 3:AttacedPhoto 0:exit) : ");
         scanf("%d", &updateNo);
 
         if (updateNo == 0){
             break;
         }
         else if (updateNo == 1){
-            printf("New writer`s name : ");
-            scanf(" %[^\n]s", p->name);
-        }
-        else if (updateNo == 2){
             printf("New title of Post : ");
             scanf(" %[^\n]s", p->title);
         }
-        else if (updateNo == 3){
+        else if (updateNo == 2){
             printf("New content : ");
             scanf(" %[^\n]s", p->content);
         }
-        else if (updateNo == 4){
+        else if (updateNo == 3){
             do
             {
                 printf("Having attached photo(Y/N)? : ");
@@ -140,13 +141,19 @@ int DeletePost(Post *p, int no)
     p[no].isDeleted = true;
     return 1;
 }
-void SaveBoard(Post *p, int idx, char name[15])
+void SaveBoard(Post *p, int idx, char id[15], int mode)
 {
     char filename[20];
-    strcpy(filename,strcat(name,".txt"));
-    FILE * fp;
-    FILE * fp2;
-    fp = fopen(filename, "w");
+    strcpy(filename,strcat(id,".txt"));
+    FILE * fp, * fp2;
+    if (mode == 1){
+        fp = fopen("public.txt", "w");
+        fp2 = fopen(filename, "w");
+    }
+    else if (mode == 2){
+        fp = fopen(filename, "w");
+        fp2 = fopen("public.txt", "w");
+    }
     int j = 1;
     for (int i = 0; i < idx; i++)
     {
@@ -154,33 +161,60 @@ void SaveBoard(Post *p, int idx, char name[15])
         {
             fprintf(fp,"%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
             fprintf(fp,"%s\n", p[i].content);
-            if (p[i].isPublic == 'Y')
+            if (mode == 2 && p[i].isPublic == 'Y')
             {
-                if (fp2 = fopen("public.txt", "r"))
-                {
-                    fclose(fp2);
-                    fp2 = fopen("public.txt", "a");
-                    fprintf(fp,"%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
-                    fprintf(fp,"%s\n", p[i].content);
-                    fclose(fp2);
-                }
-                else
-                {
-                    fp2 = fopen("public.txt", "w");
-                    fprintf(fp,"%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
-                    fprintf(fp,"%s\n", p[i].content);
-                    fclose(fp2);
-                }
+                fprintf(fp2,"%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
+                fprintf(fp2,"%s\n", p[i].content);
+                // if (fp2 = fopen("public.txt", "r"))
+                // {
+                //     fclose(fp2);
+                //     fp2 = fopen("public.txt", "a");
+                //     fprintf(fp,"%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
+                //     fprintf(fp,"%s\n", p[i].content);
+                //     fclose(fp2);
+                // }
+                // else
+                // {
+                //     fp2 = fopen("public.txt", "w");
+                //     fprintf(fp,"%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
+                //     fprintf(fp,"%s\n", p[i].content);
+                //     fclose(fp2);
+                // }
                 
             }
             
             j++;
         }
     }
+    fclose(fp);
+    fclose(fp2);
 }
-int LoadBoard(Post *p)
+
+int LoadBoard(Post *p, char id[15], int mode)
 {
-    return 0;
+    FILE * fp;
+    char filename[20];
+    strcpy(filename, id);
+    strcat(filename, ".txt");
+    
+    if (mode == 1){
+        fp = fopen("public.txt", "rt");
+    }
+    else if (mode == 2){
+        fp = fopen(filename, "rt");
+    }
+
+    int j;
+    int i=0;
+    while (!feof(fp)){
+        printf("1\n");
+        fscanf(fp,"%d %s %s %s %c", &j, p[i].title, p[i].name, p[i].date, &p[i].isPublic);
+        fscanf(fp,"%s", p[i].content);
+        i++;
+    }
+    fclose(fp);
+ 
+    return j;
 }
 int ShowMenu()
 {

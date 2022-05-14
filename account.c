@@ -15,7 +15,7 @@ int AccountMenu()
     return menu;
 }
 
-int LoadAccount(struct Account* p[])
+int LoadAccount(struct Account* a[])
 {
     FILE * fp;
     int i = 0;
@@ -27,9 +27,9 @@ int LoadAccount(struct Account* p[])
             char t_pwd[15];
             int t = fscanf(fp,"%s %s", t_name, t_pwd);
             if (t <= 0) break;
-            p[i] = (struct Account*) malloc(sizeof(struct Account));
-            strcpy(p[i]->user_name, t_name);
-            strcpy(p[i]->user_pwd, t_pwd);
+            a[i] = (struct Account*) malloc(sizeof(struct Account));
+            strcpy(a[i]->user_name, t_name);
+            strcpy(a[i]->user_pwd, t_pwd);
             i++;
         }
         printf("=> Loading Success\n");
@@ -42,19 +42,19 @@ int LoadAccount(struct Account* p[])
         fp = fopen("account.txt", "w");
         fprintf(fp,"NULL 0000\n");         //fake value for creating new file
         fclose(fp);
-        int tmp = LoadAccount(p);
+        int tmp = LoadAccount(a);
     }
     
     return i;
 }
 
-int Login(struct Account* p[], char n[15], char pw[15], int count)
+int Login(struct Account* a[], char n[15], char pw[15], int count)
 {
     for (int i = 0; i < count; i++)
     {
-        if (strcmp(p[i]->user_name, n) == 0)
+        if (strcmp(a[i]->user_name, n) == 0)
         {
-            if ((strcmp(p[i]->user_pwd, pw) == 0))
+            if ((strcmp(a[i]->user_pwd, pw) == 0))
             {
                 printf("Login Success!\n");
                 return 1;
@@ -63,11 +63,11 @@ int Login(struct Account* p[], char n[15], char pw[15], int count)
             return -1;
         }
     }
-    printf("Account doesn't exit!\n");
+    printf("Account doesn't exist!\n");
     return 0;
 }
 
-void SignUp(struct Account* p[], int count)
+void SignUp(struct Account* a[], int count)
 {
     char t_n[15], t_pw[15], t_pw2[15];
     int go;
@@ -79,9 +79,9 @@ void SignUp(struct Account* p[], int count)
         
         for (int i = 0; i < count; i++)
         {
-            if (strcmp(p[i]->user_name, t_n) == 0)
+            if (strcmp(a[i]->user_name, t_n) == 0)
             {
-                printf("ID already exuts! Try again!\n");
+                printf("ID already exists! Try again!\n");
                 go = 0;
                 continue;
             }
@@ -100,7 +100,7 @@ void SignUp(struct Account* p[], int count)
         printf("Passwords are not same. Please, enter it again.\n");
     }
     FILE * fp;
-    if ((strcmp(p[0]->user_name, "NULL") == 0) &&(strcmp(p[0]->user_pwd, "0000") == 0))
+    if ((strcmp(a[0]->user_name, "NULL") == 0) &&(strcmp(a[0]->user_pwd, "0000") == 0))
     {
         fp = fopen("account.txt", "w");
         fprintf(fp, "%s %s\n", t_n, t_pw);

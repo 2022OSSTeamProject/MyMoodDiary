@@ -7,7 +7,7 @@
 
 int main(void)
 {
-    Post p[20];
+    Post p[32];
     int count = 0; // the numbers of post
     int account_count = 0;
     int account_menu;
@@ -15,6 +15,7 @@ int main(void)
     int index = 0; // now index
     int no;        // select number you want
     int login;
+    int mode; // for public or private mode
     struct Account* a[20];
     char id[15], pwd[15];
     
@@ -40,8 +41,23 @@ int main(void)
         else
             printf("Enter the menu again.\n");
     }
+
     printf("\nWelcome, %s!! We missed you :)\n", id);
+    
+    while(1){
+        printf("1. public mode\n");
+        printf("2. private mode\n");
+        printf("Choose the mode! (only 1 or 2) : ");
+        scanf("%d", &mode);
+
+        if (mode == 1 || mode == 2) break;
+        else printf("Wrong input!\n");
+    }
     count = 0;
+    
+    index = LoadBoard(p, id, mode);
+    count = index;
+
     while (1)
     {
         menu = ShowMenu();
@@ -64,7 +80,7 @@ int main(void)
         else if (menu == 3)
         {
             // CreatePost
-            count += CreatePost(&p[count], ++index);
+            count += CreatePost(&p[count], ++index, id, mode);
         }
         else if (menu == 4)
         {
@@ -75,7 +91,7 @@ int main(void)
                 printf("=> Canceled!\n");
                 continue;
             }
-            if (UpdatePost(p, count, no-1))
+            if (UpdatePost(p, count, id, no-1))
                 printf("=> Update Complete!\n");
         }
         else if (menu == 5)
@@ -102,7 +118,16 @@ int main(void)
         else if (menu == 6)
         {
             // SaveBoard
-            SaveBoard(p, index, id);
+            // if mode == 1
+            if (mode == 1){
+                // save public board
+                SaveBoard(p, index, id, mode);
+            }
+            // if mode == 2
+            else if (mode == 2){
+                // save private board
+                SaveBoard(p, index, id, mode);
+            }
         }
         else if (menu == 7)
         {
