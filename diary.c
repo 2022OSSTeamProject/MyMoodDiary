@@ -11,21 +11,21 @@ int CreatePost(Post *p, int index, char id[15], int mode)
     char year[5] = "";
     char mon[3] = "";
     char day[3] = "";
-    
+
     time_t t = time(NULL);
     struct tm *tm = localtime(&t);
 
-    //printf("Writer`s name : ");
-    //scanf(" %[^\n]s", p->name);
+    // printf("Writer`s name : ");
+    // scanf(" %[^\n]s", p->name);
     strcpy(p->name, id);
-    
+
     printf("Title of Post : ");
     scanf(" %[^\n]s", p->title);
-    //getchar();
+    // getchar();
 
     printf("Contents : ");
     scanf(" %[^\n]s", p->content);
-    //getchar();
+    // getchar();
 
     do
     {
@@ -35,11 +35,13 @@ int CreatePost(Post *p, int index, char id[15], int mode)
             break;
         printf("\'Y\' or \'N\' only you can choose\n");
     } while (true);
-    
-    if (mode == 1){
+
+    if (mode == 1)
+    {
         p->isPublic = 'Y';
     }
-    else{
+    else
+    {
         do
         {
             printf("Do you want to set this post as public so that everyone can see it? (Y/N)? : ");
@@ -49,7 +51,7 @@ int CreatePost(Post *p, int index, char id[15], int mode)
             printf("\'Y\' or \'N\' only you can choose\n");
         } while (true);
     }
-    
+
     sprintf(year, "%d", tm->tm_year + 1900);
     sprintf(mon, "%d", tm->tm_mon + 1);
     sprintf(day, "%d", tm->tm_mday);
@@ -79,7 +81,8 @@ void ListBoard(Post *p, int idx)
     printf("no\ttitle\twriter\tdate\t\tcontent\n");
     for (int i = 0; i < idx; i++)
     {
-        if (!p[i].isDeleted) ReadPost(p[i]);
+        if (!p[i].isDeleted)
+            ReadPost(p[i]);
     }
     printf("****************************************************\n\n");
 }
@@ -89,34 +92,40 @@ int UpdatePost(Post *p, int count, char id[15], int no)
     char year[5] = "";
     char mon[3] = "";
     char day[3] = "";
-    
+
     time_t t = time(NULL);
     struct tm *tm = localtime(&t);
 
     showDetail(p, no);
 
-    int updateNo=1;
-    while(1){
+    int updateNo = 1;
+    while (1)
+    {
         printf("Choose what you want to update (1:title 2:content 3:AttacedPhoto 0:exit) : ");
         scanf("%d", &updateNo);
 
-        if (updateNo == 0){
+        if (updateNo == 0)
+        {
             break;
         }
-        else if (updateNo == 1){
+        else if (updateNo == 1)
+        {
             printf("New title of Post : ");
             scanf(" %[^\n]s", p->title);
         }
-        else if (updateNo == 2){
+        else if (updateNo == 2)
+        {
             printf("New content : ");
             scanf(" %[^\n]s", p->content);
         }
-        else if (updateNo == 3){
+        else if (updateNo == 3)
+        {
             do
             {
                 printf("Having attached photo(Y/N)? : ");
                 scanf(" %c", &p->isAttached);
-                if (p->isAttached == 'Y' || p->isAttached == 'N') break;
+                if (p->isAttached == 'Y' || p->isAttached == 'N')
+                    break;
                 printf("\'Y\' or \'N\' only you can choose\n");
             } while (true);
         }
@@ -136,7 +145,7 @@ int UpdatePost(Post *p, int count, char id[15], int no)
 
     return 1;
 }
-int DeletePost(Post *p, int no)    
+int DeletePost(Post *p, int no)
 {
     p[no].isDeleted = true;
     return 1;
@@ -144,13 +153,15 @@ int DeletePost(Post *p, int no)
 void SaveBoard(Post *p, int idx, char id[15], int mode)
 {
     char filename[20];
-    strcpy(filename,strcat(id,".txt"));
-    FILE * fp, * fp2;
-    if (mode == 1){
+    strcpy(filename, strcat(id, ".txt"));
+    FILE *fp, *fp2;
+    if (mode == 1)
+    {
         fp = fopen("public.txt", "w");
         fp2 = fopen(filename, "w");
     }
-    else if (mode == 2){
+    else if (mode == 2)
+    {
         fp = fopen(filename, "w");
         fp2 = fopen("public.txt", "w");
     }
@@ -159,12 +170,12 @@ void SaveBoard(Post *p, int idx, char id[15], int mode)
     {
         if (!p[i].isDeleted)
         {
-            fprintf(fp,"%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
-            fprintf(fp,"%s\n", p[i].content);
+            fprintf(fp, "%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
+            fprintf(fp, "%s\n", p[i].content);
             if (mode == 2 && p[i].isPublic == 'Y')
             {
-                fprintf(fp2,"%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
-                fprintf(fp2,"%s\n", p[i].content);
+                fprintf(fp2, "%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
+                fprintf(fp2, "%s\n", p[i].content);
                 // if (fp2 = fopen("public.txt", "r"))
                 // {
                 //     fclose(fp2);
@@ -180,9 +191,8 @@ void SaveBoard(Post *p, int idx, char id[15], int mode)
                 //     fprintf(fp,"%s\n", p[i].content);
                 //     fclose(fp2);
                 // }
-                
             }
-            
+
             j++;
         }
     }
@@ -192,28 +202,31 @@ void SaveBoard(Post *p, int idx, char id[15], int mode)
 
 int LoadBoard(Post *p, char id[15], int mode)
 {
-    FILE * fp;
+    FILE *fp;
     char filename[20];
     strcpy(filename, id);
     strcat(filename, ".txt");
-    
-    if (mode == 1){
+
+    if (mode == 1)
+    {
         fp = fopen("public.txt", "rt");
     }
-    else if (mode == 2){
+    else if (mode == 2)
+    {
         fp = fopen(filename, "rt");
     }
 
     int j;
-    int i=0;
-    while (!feof(fp)){
+    int i = 0;
+    while (!feof(fp))
+    {
         printf("1\n");
-        fscanf(fp,"%d %s %s %s %c", &j, p[i].title, p[i].name, p[i].date, &p[i].isPublic);
-        fscanf(fp,"%s", p[i].content);
+        fscanf(fp, "%d %s %s %s %c", &j, p[i].title, p[i].name, p[i].date, &p[i].isPublic);
+        fscanf(fp, "%s", p[i].content);
         i++;
     }
     fclose(fp);
- 
+
     return j;
 }
 int ShowMenu()
@@ -230,7 +243,7 @@ int ShowMenu()
     printf("0. exit\n\n");
     printf("=> What do you want? ");
     scanf("%d", &menu);
-    //getchar();
+    // getchar();
     return menu;
 }
 void SearchPost(Post *p, int idx)
@@ -268,7 +281,7 @@ void SearchPost(Post *p, int idx)
                 break;
             }
         }
-        printf("\n****************************************************\n");
+        printf("****************************************************\n");
     }
     else if (select == 2)
     {
@@ -288,7 +301,7 @@ void SearchPost(Post *p, int idx)
                 scnt++;
             }
         }
-        printf("\n****************************************************\n");
+        printf("****************************************************\n");
     }
     else if (select == 3)
     {
@@ -308,7 +321,7 @@ void SearchPost(Post *p, int idx)
                 scnt++;
             }
         }
-        printf("\n****************************************************\n");
+        printf("****************************************************\n");
     }
     else if (select == 4)
     {
@@ -328,7 +341,7 @@ void SearchPost(Post *p, int idx)
                 scnt++;
             }
         }
-        printf("\n****************************************************\n");
+        printf("****************************************************\n");
     }
     else if (select == 5)
     {
@@ -348,7 +361,7 @@ void SearchPost(Post *p, int idx)
                 scnt++;
             }
         }
-        printf("\n****************************************************\n");
+        printf("****************************************************\n");
     }
     else
     {
@@ -378,12 +391,13 @@ int SelectPostNo(Post *p, int index)
     {
         printf("number(cancel : 0)? ");
         scanf("%d", &idx);
-        //getchar();
-        if (idx == 0) break;
+        // getchar();
+        if (idx == 0)
+            break;
         if (idx <= index)
             break;
         printf("No such data.\n");
     }
-    
+
     return idx;
 }
