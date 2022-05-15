@@ -248,12 +248,12 @@ void SearchPost(Post *p, int idx)
     printf("\n");
 
     int scnt = 0;
-    char search[20];
 
     if (select == 1)
     {
+        int search;
         printf("Search Number: ");
-        scanf("%s", search);
+        scanf("%d", &search);
         getchar();
         printf("\n****************************************************\n");
 
@@ -272,6 +272,7 @@ void SearchPost(Post *p, int idx)
     }
     else if (select == 2)
     {
+        char search[20];
         printf("Search Title: ");
         scanf("%s", search);
         getchar();
@@ -291,6 +292,7 @@ void SearchPost(Post *p, int idx)
     }
     else if (select == 3)
     {
+        char search[20];
         printf("Search Writer: ");
         scanf("%s", search);
         getchar();
@@ -310,6 +312,7 @@ void SearchPost(Post *p, int idx)
     }
     else if (select == 4)
     {
+        char search[20];
         printf("Search Writer: ");
         scanf("%s", search);
         getchar();
@@ -329,6 +332,7 @@ void SearchPost(Post *p, int idx)
     }
     else if (select == 5)
     {
+        char search[20];
         printf("Search Content: ");
         scanf("%s", search);
         getchar();
