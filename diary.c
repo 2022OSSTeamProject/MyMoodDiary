@@ -235,6 +235,128 @@ int ShowMenu()
 }
 void SearchPost(Post *p, int idx)
 {
+    int select;
+    printf("\n*** Search Diary ***\n");
+    printf("1. Find by Number\n");
+    printf("2. Find by Title\n");
+    printf("3. Find by Writer\n");
+    printf("4. Find by Date\n");
+    printf("5. Find by Content\n\n");
+    printf("=> 원하는 찾기 메뉴는? ");
+    scanf("%d", &select);
+    getchar();
+    printf("\n");
+
+    int scnt = 0;
+    char search[20];
+
+    if (select == 1)
+    {
+        printf("Search Number: ");
+        scanf("%s", search);
+        getchar();
+        printf("\n****************************************************\n");
+
+        for (int i = 0; i < idx; i++)
+        {
+            if (p[i].isDeleted)
+                continue;
+            if (p[i].num == search)
+            {
+                ReadPost(p[i]);
+                scnt++;
+                break;
+            }
+        }
+        printf("\n****************************************************\n");
+    }
+    else if (select == 2)
+    {
+        printf("Search Title: ");
+        scanf("%s", search);
+        getchar();
+        printf("\n****************************************************\n");
+
+        for (int i = 0; i < idx; i++)
+        {
+            if (p[i].isDeleted)
+                continue;
+            if (strstr(p[i].title, search))
+            {
+                ReadPost(p[i]);
+                scnt++;
+            }
+        }
+        printf("\n****************************************************\n");
+    }
+    else if (select == 3)
+    {
+        printf("Search Writer: ");
+        scanf("%s", search);
+        getchar();
+        printf("\n****************************************************\n");
+
+        for (int i = 0; i < idx; i++)
+        {
+            if (p[i].isDeleted)
+                continue;
+            if (strstr(p[i].name, search))
+            {
+                ReadPost(p[i]);
+                scnt++;
+            }
+        }
+        printf("\n****************************************************\n");
+    }
+    else if (select == 4)
+    {
+        printf("Search Writer: ");
+        scanf("%s", search);
+        getchar();
+        printf("\n****************************************************\n");
+
+        for (int i = 0; i < idx; i++)
+        {
+            if (p[i].isDeleted)
+                continue;
+            if (strstr(p[i].date, search))
+            {
+                ReadPost(p[i]);
+                scnt++;
+            }
+        }
+        printf("\n****************************************************\n");
+    }
+    else if (select == 5)
+    {
+        printf("Search Content: ");
+        scanf("%s", search);
+        getchar();
+        printf("\n****************************************************\n");
+
+        for (int i = 0; i < idx; i++)
+        {
+            if (p[i].isDeleted)
+                continue;
+            if (strstr(p[i].content, search))
+            {
+                ReadPost(p[i]);
+                scnt++;
+            }
+        }
+        printf("\n****************************************************\n");
+    }
+    else
+    {
+        printf("Invalid Selection\n");
+        return;
+    }
+
+    if (scnt == 0)
+    {
+        printf("There are no search results!!!\n");
+    }
+
     return;
 }
 void showDetail(Post *p, int no)
