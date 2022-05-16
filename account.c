@@ -38,7 +38,7 @@ int LoadAccount(struct Account* a[])
     else
     {
         FILE * fp;
-        printf("\n=> File doesn't exit.\n New file created\n Please sign-up!!\n");
+        printf("\n=> File doesn't exist.\n New file created\n Please sign-up!!\n");
         fp = fopen("account.txt", "w");
         fprintf(fp,"NULL 0000\n");         //fake value for creating new file
         fclose(fp);
@@ -77,6 +77,11 @@ void SignUp(struct Account* a[], int count)
         printf("Enter your ID: ");
         scanf("%s", t_n);
         
+        if (count == 0)
+        {
+            a[0] = (struct Account*) malloc(sizeof(struct Account));
+            strcpy(a[0]->user_name, t_n);
+        }
         for (int i = 0; i < count; i++)
         {
             if (strcmp(a[i]->user_name, t_n) == 0)

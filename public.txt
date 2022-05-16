@@ -1,4 +1,17 @@
-1	aaa	baek	2022-5-14	Y
-aaa
-2	haha	baek	2022-5-14	Y
-hoho
+1
+a
+baek
+2022-5-16
+N
+i want to go home
+2
+jeong
+2022-5-16
+N
+i really want to go home
+3
+c
+kim
+2022-5-16
+N
+i really really want to go home

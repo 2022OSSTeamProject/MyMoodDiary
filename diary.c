@@ -170,27 +170,12 @@ void SaveBoard(Post *p, int idx, char id[15], int mode)
     {
         if (!p[i].isDeleted)
         {
-            fprintf(fp, "%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
+            fprintf(fp, "%d\n%s\n%s\n%s\n%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
             fprintf(fp, "%s\n", p[i].content);
             if (mode == 2 && p[i].isPublic == 'Y')
             {
-                fprintf(fp2, "%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
+                fprintf(fp2, "%d\n%s\n%s\n%s\n%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
                 fprintf(fp2, "%s\n", p[i].content);
-                // if (fp2 = fopen("public.txt", "r"))
-                // {
-                //     fclose(fp2);
-                //     fp2 = fopen("public.txt", "a");
-                //     fprintf(fp,"%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
-                //     fprintf(fp,"%s\n", p[i].content);
-                //     fclose(fp2);
-                // }
-                // else
-                // {
-                //     fp2 = fopen("public.txt", "w");
-                //     fprintf(fp,"%d\t%s\t%s\t%s\t%c\n", j, p[i].title, p[i].name, p[i].date, p[i].isPublic);
-                //     fprintf(fp,"%s\n", p[i].content);
-                //     fclose(fp2);
-                // }
             }
 
             j++;
@@ -203,31 +188,45 @@ void SaveBoard(Post *p, int idx, char id[15], int mode)
 int LoadBoard(Post *p, char id[15], int mode)
 {
     FILE *fp;
-    char filename[20];
+    char filename[32];
     strcpy(filename, id);
     strcat(filename, ".txt");
 
     if (mode == 1)
     {
         fp = fopen("public.txt", "rt");
+        if (fp==NULL){
+            fp = fopen("public.txt", "w");
+            fclose(fp);
+            return 0;
+        }
     }
     else if (mode == 2)
     {
         fp = fopen(filename, "rt");
+        if (fp==NULL){
+            fp = fopen(filename, "w");
+            fclose(fp);
+            return 0;
+        }
     }
 
     int j;
     int i = 0;
-    while (!feof(fp))
+    while (1)
     {
-        printf("1\n");
-        fscanf(fp, "%d %s %s %s %c", &j, p[i].title, p[i].name, p[i].date, &p[i].isPublic);
-        fscanf(fp, "%s", p[i].content);
+        fscanf(fp, "%d", &p[i].num);
+        if (feof(fp)) break;
+        fscanf(fp, " %[^\n]s", p[i].title);
+        fscanf(fp, " %[^\n]s", p[i].name);
+        fscanf(fp, " %[^\n]s", p[i].date);
+        fscanf(fp, " %c", &p[i].isPublic);
+        fscanf(fp, " %[^\n]s", p[i].content);
         i++;
     }
     fclose(fp);
 
-    return j;
+    return i;
 }
 int ShowMenu()
 {
@@ -255,7 +254,7 @@ void SearchPost(Post *p, int idx)
     printf("3. Find by Writer\n");
     printf("4. Find by Date\n");
     printf("5. Find by Content\n\n");
-    printf("=> 원하는 찾기 메뉴는? ");
+    printf("=> What do you want to find? ");
     scanf("%d", &select);
     getchar();
     printf("\n");
