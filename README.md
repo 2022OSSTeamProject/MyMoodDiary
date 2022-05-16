@@ -1,23 +1,28 @@
 # MyMoodDiary
+![diary-gf0ef1ef91_640](https://user-images.githubusercontent.com/104723684/168603704-d201d564-5f2d-4bec-a6cf-2beb37260f6d.jpg)
+<br>
+## 다이어리 플랫폼<br>
+> 소개 : 글을 원하는대로 쓰고 읽고 저장하고 삭제할 수 있게 해주는 프로그램이다.<br>
+> 들어갈 내용 : 글 번호, 작성자, 제목, 날짜, 내용, 사진첨부여부 등<br>
+> 활용 언어 : C<br>
 
-주제 : 다이어리<br>
-소개 : 글을 원하는대로 쓰고 읽고 저장하고 삭제할 수 있게 해주는 프로그램이다.<br>
-들어갈 내용 : 글 번호, 작성자, 제목, 날짜, 내용, 사진첨부여부 등<br>
-활용 언어 : C<br>
-
-팀 소개 및 역할 :
+---
+## 팀 소개 및 역할
  - 백건하(아이디어, 구현 협업)
  - 김대석(아이디어, 구현 협업)
  - 정윤석(아이디어, 구현 협업)
+---
+## Github<br>
+- 공용 github : https://github.com/2022OSSTeamProject/MyMoodDiary.git<br>
+- 대석 github : https://github.com/muyaho-universe/2022OSSTeamProject_Daeseok.git<br>
+- 건하 github : https://github.com/rjsgk789/2022OSS_Baek<br>
+- 윤석 github : https://github.com/YS-Jeong-21800673/MyMoodDiary<br>
+- 위키 : https://github.com/2022OSSTeamProject/MyMoodDiary/wiki<br>
 
-공용 github : https://github.com/2022OSSTeamProject/MyMoodDiary.git<br>
-대석 github : https://github.com/muyaho-universe/2022OSSTeamProject_Daeseok.git<br>
-건하 github : https://github.com/rjsgk789/2022OSS_Baek<br>
-윤석 github : https://github.com/YS-Jeong-21800673/MyMoodDiary<br>
-위키 : https://github.com/2022OSSTeamProject/MyMoodDiary/wiki<br>
+---
 
-
-설계 :<br>
+## 설계<br>
+``` C
 typedef Struct {<br>
 int num;<br>
 char name[20];<br>
@@ -48,6 +53,4 @@ LoadBoard(Post * p) // load all posts in board<br>
 ShowMenu() // show menus<br>
 SearchPost(Post * p, int idx) // searching in board<br>
 showDetail(Post * p, int idx) // read descript from a post<br>
-
-
-
+```
